@@ -1,0 +1,12 @@
+__pycache__/
+.ipynb_checkpoints/
+.idea/
+.pytest_cache/
+.mypy_cache/
+.DS_Store
+Pipfile.lock
+.secrets.json
+*.ipynb
+*.parquet
+*.nc
+*.csv
