@@ -13,7 +13,14 @@ def serve_layout() -> dbc.Container:
         ],
     )
 
-    data_graph = dcc.Loading(dcc.Graph(id="data-graph", style={"height": "50vh"}))
+    data_graph = dcc.Loading(
+        html.Div(
+            [
+                dcc.Graph(id="data-graph", style={"height": "50vh"}),
+                dcc.Store(id="data-store"),
+            ]
+        )
+    )
 
     refresh_button = dbc.Button(
         "Refresh",
@@ -28,7 +35,6 @@ def serve_layout() -> dbc.Container:
             dbc.Row([dbc.Col(html.Br(), width=10)], justify="center"),
             dbc.Row([dbc.Col(refresh_button, width=10)], justify="center"),
             dbc.Row([dbc.Col(html.Br(), width=10)], justify="center"),
-            dcc.Store(id="data-store"),
         ]
     )
     return dbc.Container([page])
