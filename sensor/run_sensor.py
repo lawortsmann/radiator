@@ -9,7 +9,11 @@ from qwiic_bme280 import QwiicBme280
 from database import GCPClient
 
 LOGGER = logging.getLogger(__name__)
-DATA_TABLE = "lawortsmann.data.radiator"
+DATA_TABLE = "lawortsmann.data.sensors"
+
+
+def now() -> datetime:
+    return datetime.now(timezone.utc)
 
 
 def check_sensors(refresh: float) -> pd.DataFrame:
@@ -18,27 +22,31 @@ def check_sensors(refresh: float) -> pd.DataFrame:
         raise ConnectionError("could not connect to sensor")
 
     sensor.begin()
+
     sample = []
     for t in range(max(10, min(1000, int(30 / refresh)))):
-        sample.append(
-            {
-                "timestamp": datetime.now(timezone.utc),
-                "temp_c": sensor.temperature_celsius,
-                "temp_f": sensor.temperature_fahrenheit,
-                "humidity": sensor.humidity,
-                "pressure": sensor.pressure,
-                "altitude": sensor.altitude_meters,
-                "dewpoint_c": sensor.dewpoint_celsius,
-                "dewpoint_f": sensor.dewpoint_fahrenheit,
-            }
-        )
+        sample += [
+            (now(), "temp_c", sensor.temperature_celsius),
+            (now(), "temp_f", sensor.temperature_fahrenheit),
+            (now(), "humidity", sensor.humidity),
+            (now(), "pressure", sensor.pressure),
+            (now(), "altitude", sensor.altitude_meters),
+            (now(), "dewpoint_c", sensor.dewpoint_celsius),
+            (now(), "dewpoint_f", sensor.dewpoint_fahrenheit),
+        ]
         sleep(refresh)
 
-    return pd.DataFrame(data)
+    df = pd.DataFrame(data, columns=["timestamp", "metric", "value"])
+    return df
 
 
 if __name__ == "__main__":
     parser = ArgumentParser()
+    parser.add_argument(
+        "--sensor",
+        help="sensor name",
+        type=str,
+    )
     parser.add_argument(
         "--refresh",
         help="refresh rate seconds",
@@ -59,6 +67,7 @@ if __name__ == "__main__":
     while True:
         try:
             data = check_sensors(args.refresh)
+            data["sensor"] = args.sensor
             database.upload_bq(data, DATA_TABLE)
             LOGGER.info(f"uploaded data {len(data)}")
         except Exception as err:

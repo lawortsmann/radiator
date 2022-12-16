@@ -7,7 +7,7 @@ from dash import Input, Output
 from app.server import app, database
 from app.template import TEMPLATE
 
-DATA_TABLE = "lawortsmann.data.radiator"
+DATA_TABLE = "lawortsmann.data.sensors"
 
 
 @app.callback(
@@ -16,8 +16,10 @@ DATA_TABLE = "lawortsmann.data.radiator"
 )
 def update_data(n: int) -> Any:
     query = f"""
-    SELECT timestamp, temp_f
+    SELECT timestamp, value
     FROM {DATA_TABLE}
+    WHERE sensor = 'production'
+    AND metric = 'temp_f'
     ORDER BY timestamp;
     """
     data = database.query_bq(query)
@@ -26,7 +28,7 @@ def update_data(n: int) -> Any:
     data = data.resample("5S").mean()
     res = {
         "timestamp": list(data.index.strftime("%Y-%m-%d %H:%M:%S")),
-        "temp": list(data["temp_f"]),
+        "temp": list(data["value"]),
     }
     return res
 
