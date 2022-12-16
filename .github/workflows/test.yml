@@ -26,7 +26,7 @@ jobs:
         flake8 . --count --show-source --statistics
     - name: Type checking with Mypy
       run: |
-        pip install mypy
+        pip install mypy types-requests
         mypy --config-file mypy.ini
     - name: Test code with pytest
       run: |
