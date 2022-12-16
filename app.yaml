@@ -1,3 +1,11 @@
 service: default
-runtime: custom
-env: standard
+runtime: python38
+
+automatic_scaling:
+    min_instances: 0
+    max_instances: 2
+    target_cpu_utilization: 0.75
+
+instance_class: F4
+
+entrypoint: gunicorn -b :$PORT --workers 4 --timeout 0 main:server

@@ -9,12 +9,14 @@ verify_ssl = true
 numpy = "*"
 pandas = "*"
 dash = "*"
+dash-bootstrap-components = "*"
 plotly = "*"
 flask = "*"
 gunicorn = "*"
 google-cloud-bigquery = "*"
 google-auth = "*"
 db-dtypes = "*"
+sparkfun-qwiic = "*"
 
 [requires]
 python_version = "3.8"
