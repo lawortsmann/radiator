@@ -1,6 +1,7 @@
 from argparse import ArgumentParser
 
-from app.common import app
+from app import callbacks  # noqa F401
+from app.common import app, server  # noqa F401
 from app.layout import serve_layout
 
 app.title = "Radiator"
