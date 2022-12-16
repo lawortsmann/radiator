@@ -17,4 +17,4 @@ jobs:
     - name: GCP Deploy
       uses: 'google-github-actions/deploy-appengine@v0'
       with:
-        promote: false
+        promote: true
