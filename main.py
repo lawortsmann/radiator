@@ -1,8 +1,8 @@
 from argparse import ArgumentParser
 
 from app import callbacks  # noqa F401
-from app.common import app, server  # noqa F401
 from app.layout import serve_layout
+from app.server import app, server  # noqa F401
 
 app.title = "Radiator"
 app.layout = serve_layout

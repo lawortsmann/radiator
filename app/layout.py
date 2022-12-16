@@ -10,6 +10,7 @@ def serve_layout() -> dbc.Container:
             dbc.Row([dbc.Col(data_graph, width=10)], justify="center"),
             dbc.Row([dbc.Col(html.Hr(), width=10)], justify="center"),
             dcc.Store(id="data-store"),
+            dcc.Interval(id="interval", interval=5000, n_intervals=0),
         ]
     )
     return dbc.Container([page])
