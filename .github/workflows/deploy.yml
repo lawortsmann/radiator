@@ -10,6 +10,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    - env:
+        GCP_SECRET: ${{ secrets.GCP_SA_KEY }}
+      run: |
+        echo $GCP_SECRET > .gcp-secrets.json
     - name: GCP Auth
       uses: 'google-github-actions/auth@v0'
       with:

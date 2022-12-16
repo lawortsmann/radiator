@@ -6,6 +6,7 @@ __pycache__/
 .DS_Store
 Pipfile.lock
 .secrets.json
+.gcp-secrets.json
 *.ipynb
 *.parquet
 *.nc

@@ -8,10 +8,7 @@ def serve_layout() -> dbc.Container:
             dbc.Row([html.Br()]),
             dbc.Row(
                 [html.P("Living Room Temperature")],
-                style={
-                    "font-family": "Barlow-Regular",
-                    "font-size": 24,
-                },
+                style={"font-size": 24},
             ),
         ],
     )

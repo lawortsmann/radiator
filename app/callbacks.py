@@ -1,12 +1,13 @@
 from typing import Any
 
-import numpy as np
 import pandas as pd
 import plotly.graph_objects as go
 from dash import Input, Output
 
-from app.server import app
+from app.server import app, database
 from app.template import TEMPLATE
+
+DATA_TABLE = "lawortsmann.data.radiator"
 
 
 @app.callback(
@@ -14,16 +15,19 @@ from app.template import TEMPLATE
     Input("refresh-button", "n_clicks"),
 )
 def update_data(n: int) -> Any:
-    now = pd.to_datetime("today").strftime("%Y-%m-%d %H:%M:%S")
-    ts = pd.date_range(end=now, periods=1000, freq="5S")
-    x = np.random.randn(1000)
-    x = 70 + np.cumsum(0.05 * x)
-
+    query = f"""
+    SELECT timestamp, temp_f
+    FROM {DATA_TABLE}
+    ORDER BY timestamp;
+    """
+    data = database.query_bq(query)
+    data["timestamp"] = pd.to_datetime(data["timestamp"])
+    data = data.set_index("timestamp")
+    data = data.resample("5S").mean()
     res = {
-        "timestamp": list(ts.strftime("%Y-%m-%d %H:%M:%S")),
-        "temp": list(x),
+        "timestamp": list(data.index.strftime("%Y-%m-%d %H:%M:%S")),
+        "temp": list(data["temp_f"]),
     }
-
     return res
 
 
