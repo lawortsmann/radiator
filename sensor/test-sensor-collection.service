@@ -1,15 +1,14 @@
 [Unit]
-Description=Sensor Collection Daemon
+Description=Test Sensor Collection Daemon
 
 [Service]
 Type=simple
 ExecStartPre=/bin/bash -c "sudo chmod a+rw /dev/i2c-*"
-ExecStartPre=/bin/bash -c "export PYTHONPATH=$HOME/radiator"
-ExecStart=/bin/bash -c "$HOME/miniconda/bin/python $HOME/radiator/sensor/run_collection.py --sensor TEST"
-WorkingDirectory=$HOME/radiator
+ExecStart=/bin/bash -c "/home/ubuntu/miniconda/bin/python /home/ubuntu/radiator/sensor/run_collection.py --sensor TEST"
+WorkingDirectory=/home/ubuntu/radiator
 User=ubuntu
 Group=ubuntu
-PIDFile=/run/sensor-collection.pid
+PIDFile=/run/test-sensor-collection.pid
 Restart=on-failure
 RestartSec=30s
 

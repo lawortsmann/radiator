@@ -4,9 +4,8 @@ Description=Sensor Collection Daemon
 [Service]
 Type=simple
 ExecStartPre=/bin/bash -c "sudo chmod a+rw /dev/i2c-*"
-ExecStartPre=/bin/bash -c "export PYTHONPATH=$HOME/radiator"
-ExecStart=/bin/bash -c "$HOME/miniconda/bin/python $HOME/radiator/sensor/run_collection.py --sensor BME280"
-WorkingDirectory=$HOME/radiator
+ExecStart=/bin/bash -c "/home/ubuntu/miniconda/bin/python /home/ubuntu/radiator/sensor/run_collection.py --sensor BME280"
+WorkingDirectory=/home/ubuntu/radiator
 User=ubuntu
 Group=ubuntu
 PIDFile=/run/sensor-collection.pid

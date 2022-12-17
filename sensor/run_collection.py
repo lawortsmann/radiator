@@ -8,12 +8,18 @@ you might have to run:
 > sudo systemctl start sensor-collection.service
 > sudo systemctl status sensor-collection
 """
+import os.path
 import random
+import sys
 from argparse import ArgumentParser
 from datetime import datetime, timezone
 from enum import Enum
 from time import sleep
 from typing import List, Tuple
+
+ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
+ROOT_DIR = os.path.abspath(os.path.join(ROOT_DIR, "../"))
+sys.path.append(ROOT_DIR)
 
 import pandas as pd
 from qwiic_bme280 import QwiicBme280
