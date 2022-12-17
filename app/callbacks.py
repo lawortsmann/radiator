@@ -37,7 +37,9 @@ def update_data(sensor: str, metric: str, n: int) -> Any:
       SELECT
         TIMESTAMP_ADD(
           TIMESTAMP('2020-01-01 00:00:00'),
-          INTERVAL 5 * DIV(TIMESTAMP_DIFF(timestamp, TIMESTAMP('2020-01-01 00:00:00'), SECOND), 5) SECOND
+          INTERVAL 5 * DIV(
+            TIMESTAMP_DIFF(timestamp, TIMESTAMP('2020-01-01 00:00:00'), SECOND),
+          5) SECOND
         ) AS timestamp,
         value
       FROM `{DATA_TABLE}`

@@ -1,7 +1,7 @@
 """
 you might have to run:
 
-> sudo cp /home/ubuntu/radiator/sensor/sensor-collection.service /etc/systemd/system/sensor-collection.service
+> sudo cp sensor-collection.service /etc/systemd/system/sensor-collection.service
 > sudo systemctl daemon-reload
 > sudo systemctl enable sensor-collection.service
 > sudo systemctl start sensor-collection.service
@@ -20,10 +20,10 @@ ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 ROOT_DIR = os.path.abspath(os.path.join(ROOT_DIR, "../"))
 sys.path.append(ROOT_DIR)
 
-import pandas as pd
-from qwiic_bme280 import QwiicBme280
+import pandas as pd  # noqa F402
+from qwiic_bme280 import QwiicBme280  # noqa F402
 
-from database import GCPClient
+from database import GCPClient  # noqa F402
 
 DATA_TABLE = "lawortsmann.data.sensors"
 
@@ -65,7 +65,7 @@ def collect_bme280(
             df = pd.DataFrame(sample, columns=["timestamp", "metric", "value"])
             df["sensor"] = "BME280"
             database.upload_bq(df, DATA_TABLE)
-            sample: List[Tuple[datetime, str, float]] = []
+            sample = []
         else:
             sleep(refresh)
 
@@ -98,7 +98,7 @@ def collect_test(
             df = pd.DataFrame(sample, columns=["timestamp", "metric", "value"])
             df["sensor"] = "TEST"
             database.upload_bq(df, DATA_TABLE)
-            sample: List[Tuple[datetime, str, float]] = []
+            sample = []
         else:
             sleep(refresh)
 
