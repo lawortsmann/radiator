@@ -1,7 +1,6 @@
 """
 you might have to run:
 
-> sudo chmod a+rw /dev/i2c-*
 > sudo cp /home/ubuntu/radiator/sensor/sensor-collection.service /etc/systemd/system/sensor-collection.service
 > sudo systemctl daemon-reload
 > sudo systemctl enable sensor-collection.service
