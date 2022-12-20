@@ -36,7 +36,7 @@ def serve_layout() -> dbc.Container:
         max=len(FREQUENCIES) - 1,
         step=1,
         marks={i: label for i, label in enumerate(FREQUENCIES.values())},
-        value=0,
+        value=2,
         id="frequency-slider",
     )
 

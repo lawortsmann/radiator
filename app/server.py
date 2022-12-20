@@ -26,4 +26,5 @@ FREQUENCIES = {
     30: "30 sec",
     60: "1 min",
     300: "5 min",
+    600: "10 min",
 }

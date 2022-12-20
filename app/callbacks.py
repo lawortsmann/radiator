@@ -44,7 +44,8 @@ def update_data(freq_ix: int, n: int) -> Any:
       STDDEV(pressure) AS std_pressure,
     FROM sensor_data
     GROUP BY ts
-    ORDER BY ts;
+    ORDER BY ts DESC
+    LIMIT 2500;
     """
     data = database.query_bq(query)
     data["ts"] = pd.to_datetime(data["ts"])
