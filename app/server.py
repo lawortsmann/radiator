@@ -20,3 +20,10 @@ METRICS = [
     "humidity",
     "pressure",
 ]
+FREQUENCIES = {
+    5: "5 sec",
+    10: "10 sec",
+    30: "30 sec",
+    60: "1 min",
+    300: "5 min",
+}
