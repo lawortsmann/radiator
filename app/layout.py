@@ -1,7 +1,7 @@
 import dash_bootstrap_components as dbc
 from dash import dcc, html
 
-from app.server import DATA_TABLE, METRICS, database
+from app.server import METRICS
 
 
 def serve_layout() -> dbc.Container:
