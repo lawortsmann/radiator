@@ -13,4 +13,10 @@ KEY_PATH = os.path.dirname(os.path.abspath(__file__))
 KEY_PATH = os.path.abspath(os.path.join(KEY_PATH, "../.gcp-secrets.json"))
 
 database = GCPClient(key_path=KEY_PATH)
-DATA_TABLE = "lawortsmann.data.sensors"
+DATA_TABLE = "lawortsmann.sensors.bme280"
+METRICS = [
+    "temp_c",
+    "temp_f",
+    "humidity",
+    "pressure",
+]

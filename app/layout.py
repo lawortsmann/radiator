@@ -1,21 +1,10 @@
 import dash_bootstrap_components as dbc
 from dash import dcc, html
 
-from app.server import DATA_TABLE, database
+from app.server import DATA_TABLE, METRICS, database
 
 
 def serve_layout() -> dbc.Container:
-    query = f"""
-    SELECT sensor, metric
-    FROM {DATA_TABLE}
-    GROUP BY sensor, metric;
-    """
-    data = database.query_bq(query)
-    sensor_metrics = {
-        sensor: list(df["metric"]) for sensor, df in data.groupby("sensor")
-    }
-    sensors = list(sensor_metrics.keys())
-
     header = html.Div(
         [
             dbc.Row([html.Br()]),
@@ -41,13 +30,12 @@ def serve_layout() -> dbc.Container:
         n_clicks=0,
     )
 
-    sensor_dropdown = dcc.Dropdown(
-        options=sensors,
-        value=sensors[0],
-        id="sensor-dropdown",
+    metric_dropdown = dcc.Dropdown(
+        options=METRICS,
+        value=METRICS[0],
+        id="metric-dropdown",
         clearable=False,
     )
-    metric_dropdown = dcc.Dropdown(id="metric-dropdown", clearable=False)
 
     page = html.Div(
         [
@@ -56,14 +44,13 @@ def serve_layout() -> dbc.Container:
             dbc.Row([dbc.Col(html.Br(), width=10)], justify="center"),
             dbc.Row(
                 [
-                    dbc.Col(sensor_dropdown, width=4),
-                    dbc.Col(metric_dropdown, width=4),
-                    dbc.Col(refresh_button, width=2),
+                    dbc.Col(metric_dropdown, width=3),
+                    dbc.Col(html.Div(), width=4),
+                    dbc.Col(refresh_button, width=3),
                 ],
                 justify="center",
             ),
             dbc.Row([dbc.Col(html.Br(), width=10)], justify="center"),
-            dcc.Store(data=sensor_metrics, id="sensor-metrics-store"),
         ]
     )
     return dbc.Container([page])
