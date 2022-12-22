@@ -79,7 +79,7 @@ def update_graph(metric: str, data: Any) -> go.Figure:
     fig.add_scatter(
         x=df["ts"],
         y=df[f"avg_{metric}"],
-        mode="markers+lines",
+        mode="lines",
         name=metric,
     ),
     fig.add_scatter(
