@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, Tuple
 
 import pandas as pd
 import plotly.graph_objects as go
@@ -97,3 +97,25 @@ def update_graph(metric: str, data: Any) -> go.Figure:
     )
     fig.update_layout(template=TEMPLATE, yaxis=METRICS[metric])
     return fig
+
+
+@app.callback(
+    [
+        Output("curr-ts", "children"),
+        Output("curr-temp", "children"),
+        Output("curr-humidity", "children"),
+        Output("curr-pressure", "children"),
+    ],
+    Input("data-store", "data"),
+)
+def update_current(data: Any) -> Tuple[str, str, str, str]:
+    curr_ts = data["ts"][0]
+    temp = data["avg_temperature"][0]
+    humidity = data["avg_humidity"][0]
+    pressure = data["avg_pressure"][0]
+    return (
+        f"as of {curr_ts}",
+        f"{temp:0.2f}°F",
+        f"{humidity:0.2%}",
+        f"{pressure:0.2f}kPa",
+    )

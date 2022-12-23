@@ -7,12 +7,28 @@ from app.server import FREQUENCIES, METRICS
 def serve_layout() -> dbc.Container:
     header = html.Div(
         [
-            dbc.Row([html.Br()]),
-            dbc.Row(
-                [html.P("Living Room Temperature")],
-                style={"font-size": 24},
-            ),
-        ],
+            html.P("Living Room Conditions", style={"font-size": 24}),
+            html.P(id="curr-ts"),
+        ]
+    )
+
+    temp_card = html.Div(
+        [
+            html.P("Temperature"),
+            html.P(id="curr-temp", style={"font-size": 24}),
+        ]
+    )
+    humidity_card = html.Div(
+        [
+            html.P("Humidity"),
+            html.P(id="curr-humidity", style={"font-size": 24}),
+        ]
+    )
+    pressure_card = html.Div(
+        [
+            html.P("Pressure"),
+            html.P(id="curr-pressure", style={"font-size": 24}),
+        ]
     )
 
     data_graph = dcc.Loading(
@@ -48,7 +64,16 @@ def serve_layout() -> dbc.Container:
 
     page = html.Div(
         [
-            dbc.Row([dbc.Col(header, width=10)], justify="center"),
+            dbc.Row(html.Br(), justify="center"),
+            dbc.Row(
+                [
+                    dbc.Col(header, width=4),
+                    dbc.Col(temp_card, width=2),
+                    dbc.Col(humidity_card, width=2),
+                    dbc.Col(pressure_card, width=2),
+                ],
+                justify="center",
+            ),
             dbc.Row([dbc.Col(data_graph, width=10)], justify="center"),
             dbc.Row([dbc.Col(html.Br(), width=10)], justify="center"),
             dbc.Row(
@@ -59,7 +84,7 @@ def serve_layout() -> dbc.Container:
                 ],
                 justify="center",
             ),
-            dbc.Row([dbc.Col(html.Br(), width=10)], justify="center"),
+            dbc.Row(html.Br(), justify="center"),
         ]
     )
-    return dbc.Container([page])
+    return dbc.Container(page)
