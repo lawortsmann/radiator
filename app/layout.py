@@ -25,8 +25,8 @@ def serve_layout() -> dbc.Container:
     )
 
     metric_dropdown = dcc.Dropdown(
-        options=METRICS,
-        value=METRICS[0],
+        options=list(METRICS.keys()),
+        value="temperature",
         id="metric-dropdown",
         clearable=False,
     )
