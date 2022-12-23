@@ -45,7 +45,7 @@ def update_data(freq_ix: int, n: int) -> Any:
     FROM sensor_data
     GROUP BY ts
     ORDER BY ts DESC
-    LIMIT 2500;
+    LIMIT 3600;
     """
     data = database.query_bq(query)
     data["ts"] = pd.to_datetime(data["ts"])

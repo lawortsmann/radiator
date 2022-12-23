@@ -21,10 +21,10 @@ METRICS = [
     "pressure",
 ]
 FREQUENCIES = {
-    5: "5 sec",
-    10: "10 sec",
-    30: "30 sec",
-    60: "1 min",
-    300: "5 min",
-    600: "10 min",
+    3: "3 hours",
+    12: "12 hours",
+    36: "36 hours",
+    120: "5 days",
+    240: "10 days",
+    720: "30 days",
 }
