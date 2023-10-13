@@ -4,10 +4,10 @@ Description=Sensor Collection Daemon
 [Service]
 Type=simple
 ExecStartPre=/bin/bash -c "sudo chmod a+rw /dev/i2c-*"
-ExecStart=/bin/bash -c "/home/ubuntu/miniconda/bin/python /home/ubuntu/radiator/sensor/run_collection.py"
-WorkingDirectory=/home/ubuntu/radiator
-User=ubuntu
-Group=ubuntu
+ExecStart=/bin/bash -c "/home/lawortsmann/radiator/venv/bin/python /home/lawortsmann/radiator/sensor/run_collection.py"
+WorkingDirectory=/home/lawortsmann/radiator
+User=lawortsmann
+Group=lawortsmann
 PIDFile=/run/sensor-collection.pid
 Restart=on-failure
 RestartSec=30s
